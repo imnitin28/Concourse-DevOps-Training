@@ -1,0 +1,19 @@
+resources:
+- name: booklit
+  type: git
+  source: {uri: "https://github.com/imnitin28/booklit/"}
+
+jobs:
+- name: unit
+  plan:
+  - get: booklit
+    trigger: true
+  - task: test
+    file: booklit/ci/test.yml
+
+- name: integrate
+  plan:
+  - get: booklit
+    trigger: true
+  - task: test
+    file: booklit/ci/test.yml

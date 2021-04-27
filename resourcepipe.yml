@@ -1,0 +1,25 @@
+---
+resources:
+- name: source-code
+  type: git
+  source:
+    uri: https://github.com/vito/booklit
+    branch: master
+
+jobs:
+  - name: pull-code
+    plan:
+    - get: source-code
+    - task: first-task
+      config:
+        platform: linux
+        image_resource:
+          type: docker-image
+          source: {repository: ubuntu}
+        inputs:
+        - name: source-code
+        outputs:
+        - name: output-folder
+        run:
+            path: find
+            args: [.]
